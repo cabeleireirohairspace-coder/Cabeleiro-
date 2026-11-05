@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>HAIR SPACE | Barbearia Premium</title>
-  <link rel="stylesheet" href="css/style.css">
+  <!-- CORREÇÃO: Puxando o style.css diretamente da raiz do repositório para ativar o fundo escuro e o layout -->
+  <link rel="stylesheet" href="style.css">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="preconnect" href="https://googleapis.com">
   <link rel="preconnect" href="https://gstatic.com" crossorigin>
@@ -13,7 +14,7 @@
 <body>
 
   <div class="app">
-    <!-- Header Fixo com Botão "Baixar o App" integrado -->
+    <!-- Header Fixo -->
     <header>
       <div class="brand">
         <img src="logo-header.webp" alt="Logo Hair Space">
@@ -41,7 +42,7 @@
         </div>
       </section>
 
-      <!-- VITRINE HAIR SPACE: Adicionada no lugar da antiga lista de serviços -->
+      <!-- VITRINE HAIR SPACE -->
       <section>
         <div class="section-head">
           <h2>Vitrine Hair Space</h2>
@@ -57,7 +58,7 @@
       </section>
     </main>
 
-    <!-- TELA 2: GALERIA COMPLETA (MOSTRA TODAS AS FOTOS REAIS JUNTAS) -->
+    <!-- TELA 2: GALERIA COMPLETA -->
     <div id="galeria-screen" class="screen">
       <section>
         <div class="section-head">
@@ -85,7 +86,7 @@
       </section>
     </div>
 
-    <!-- TELA 4: AGENDAMENTO (FORMULÁRIO INTEGRADO AO WHATSAPP) -->
+    <!-- TELA 4: AGENDAMENTO -->
     <div id="agendar-screen" class="screen">
       <section>
         <div class="section-head">
@@ -122,7 +123,7 @@
       </section>
     </div>
 
-    <!-- Menu de Navegação Inferior Fixado -->
+    <!-- Menu de Navegação Inferior -->
     <nav class="bottom">
       <a href="#" onclick="showScreen('inicio-screen')" id="nav-inicio-screen" aria-current="page">
         <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
@@ -143,16 +144,17 @@
     </nav>
   </div>
 
-  <!-- Botão Flutuante Customizado: Utiliza a imagem com símbolo "+" enviada -->
+  <!-- Botão Flutuante do WhatsApp -->
   <a href="https://whatsapp.com" target="_blank" class="wa-fab" aria-label="Chamar no WhatsApp" style="background: none; box-shadow: none;">
     <img src="image_PaQRPY.png" alt="WhatsApp" style="width: 56px; height: 56px; object-fit: contain;">
   </a>
 
-  <!-- Chamada unificada dos scripts de configuração e comportamento -->
+  <!-- Scripts -->
   <script src="config.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>
+
 
 
 
