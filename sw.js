@@ -1,52 +1,65 @@
 const CACHE_NAME = 'hairspace-cache-v1';
+
 const assetsToCache = [
-  '/',
-  '/index.html',
-  '/css/style.css',
-  '/js/config.js',
-  '/js/app.js',
-  '/manifest.webmanifest',
-  '/assets/img/logo-header.webp',
-  '/assets/img/og.jpg',
-  '/assets/icons/favicon-48.png',
-  '/assets/icons/apple-touch-icon.png',
-  '/assets/icons/icon-192.png',
-  '/assets/icons/icon-512.png',
-  '/assets/icons/maskable-512.png'
+  './',
+  './index.html',
+  './css/style.css',
+  './config.js',
+  './js/app.js',
+  './manifest.webmanifest',
+  './logo-header.webp',
+  './image_PaQRPY.png',
+  
+  './degrade-desenho.webp',
+  './mechas-rosas.webp',
+  './pompadour-degrade.webp',
+  './social-risca.webp',
+  './risca-lateral-barba.webp',
+  './risco-duplo.webp',
+
+  './cacheado-degrade.webp',
+  './cacheado-tijolinho.webp',
+  './cacheado-volume.webp',
+  './classico-franja.webp',
+  './corte-lateral.webp',
+  './degrade-oculos.webp',
+  './degrade-risca.webp',
+  './navalha-acabamento.webp',
+  './risca-marcada.webp',
+  './risco-duplo-fino.webp'
 ];
 
-// Evento de instalação do Service Worker
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
-      console.log('Armazenando arquivos essenciais no cache...');
       return cache.addAll(assetsToCache);
-    })
+    }).then(() => self.skipWaiting())
   );
 });
 
-// Evento de ativação e limpeza de caches antigos
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(cacheNames => {
       return Promise.all(
         cacheNames.map(cache => {
           if (cache !== CACHE_NAME) {
-            console.log('Apagando cache antigo:', cache);
             return caches.delete(cache);
           }
         })
       );
+    }).then(() => self.clients.claim())
+  );
+});
+
+self.addEventListener('fetch', event => {
+  if (event.request.method !== 'GET' || event.request.url.includes('://whatsapp.com')) {
+    return;
+  }
+  event.respondWith(
+    caches.match(event.request).then(cachedResponse => {
+      return cachedResponse || fetch(event.request);
     })
   );
 });
 
-// Interceptação de requisições (estratégia Cache-First)
-self.addEventListener('fetch', event => {
-  event.respondWith(
-    caches.match(event.request).then(response => {
-      return response || fetch(event.request);
-    })
-  );
-});
 
