@@ -1,111 +1,52 @@
-/* Definição das cores oficiais da Hair Space conforme imagem */
-:root {
-  --bg-app: #0a0907;        /* Fundo escuro quente */
-  --bg-card: #19150d;       /* Fundo marrom-escuro do card principal */
-  --gold: #eed58a;          /* Dourado suave pastel */
-  --gold-dark: #e8c874;     /* Dourado de compressão/clique */
-  --text-white: #ffffff;
-  --text-muted: #a3a19e;
+/* Container de Agendamento na Home */
+.booking-section-container {
+  padding: 8px 0 24px 0;
 }
 
-/* Reset básico global */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body, html {
-  background-color: var(--bg-app) !important;
-  color: var(--text-white) !important;
-  font-family: 'Inter', sans-serif;
-  min-height: 100vh;
-}
-
-.app {
-  background-color: var(--bg-app);
-  min-height: 100vh;
-  padding-bottom: 90px;
-}
-
-header {
-  background-color: var(--bg-app);
-  border-bottom: 1px solid rgba(238, 213, 138, 0.1);
-  padding: 16px;
+/* Organização de colunas para data e hora no mobile */
+.datetime-row {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-}
-
-.badge-destaque {
-  font-size: 11px;
-  color: var(--gold);
-  border: 1px solid rgba(238, 213, 138, 0.3);
-  padding: 6px 12px;
-  border-radius: 20px;
-  background-color: rgba(25, 21, 13, 0.5);
-}
-
-/* Estruturação da Seção Hero */
-.hero {
-  padding: 16px;
-}
-
-.hero-card {
-  background-color: var(--bg-card) !important;
-  border-radius: 24px;
-  padding: 24px;
-  border: 1px solid rgba(238, 213, 138, 0.15);
-}
-
-.hero h1 {
-  color: var(--text-white);
-  font-size: 2.2rem;
-  font-weight: 800;
-  line-height: 1.2;
-  margin-bottom: 12px;
-}
-
-.hero p {
-  color: var(--text-muted);
-  margin-bottom: 20px;
-  font-size: 0.95rem;
-}
-
-/* Novo Grid de Recursos (Baseado no layout enviado) */
-.features-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
   gap: 12px;
-  padding: 0 16px 24px 16px;
 }
 
-.feature-box {
-  background-color: var(--bg-card);
-  border: 1px solid rgba(238, 213, 138, 0.1);
-  border-radius: 16px;
-  padding: 16px 8px;
-  text-align: center;
+.datetime-col {
+  flex: 1;
+}
+
+/* Novo Botão Superior para Baixar o Aplicativo */
+.install-banner-container {
+  padding: 12px 16px 4px 16px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
 }
 
-.feature-icon {
-  font-size: 1.5rem;
-  margin-bottom: 8px;
-}
-
-.feature-box h3 {
+.btn-download-app {
+  width: 100%;
+  background-color: #19150d;
+  color: #eed58a;
+  border: 1px solid rgba(238, 213, 138, 0.2);
+  padding: 12px;
+  border-radius: 12px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
   font-size: 0.8rem;
-  color: var(--text-white);
-  font-weight: 600;
+  letter-spacing: 0.5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
 }
 
-/* Redesenho do Bloco de Fidelidade VIP */
-.loyalty-premium {
-  background-color: var(--bg-card);
+.btn-download-app:active {
+  background-color: #241d12;
+}
+
+/* Card Fidelidade Otimizado */
+.loyalty-card-premium {
+  background-color: #19150d;
   border: 1px solid rgba(238, 213, 138, 0.15);
   border-radius: 24px;
   padding: 24px;
@@ -113,155 +54,30 @@ header {
   text-align: center;
 }
 
-.loyalty-eyebrow {
-  font-size: 0.75rem;
-  color: var(--gold);
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  display: block;
-  margin-bottom: 6px;
-}
-
-.loyalty-premium h3 {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-bottom: 8px;
-}
-
-.loyalty-note {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  margin-bottom: 20px;
-}
-
-.loyalty-steps {
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-  font-size: 2rem;
-  color: var(--text-muted);
-  margin-bottom: 12px;
-}
-
-.loyalty-status {
-  font-size: 1.1rem;
-  color: var(--gold);
-  margin-bottom: 12px;
-}
-
-.loyalty-desc {
-  font-size: 0.9rem;
-  color: var(--text-muted);
-  margin-bottom: 20px;
-  line-height: 1.4;
-}
-
-/* Botões Customizados */
-.btn {
-  background-color: var(--gold) !important;
-  color: #0a0907 !important;
-  font-weight: 700;
-  padding: 14px 24px;
-  border-radius: 12px;
-  border: none;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  font-size: 0.85rem;
-  transition: background-color 0.2s ease, transform 0.1s ease;
-}
-
-.btn:active {
-  background-color: var(--gold-dark) !important;
-  transform: scale(0.97);
-}
-
-.btn.block {
-  display: flex;
-  width: 100%;
-}
-
-.btn-insta {
-  background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045) !important;
-  color: #ffffff !important;
-  font-weight: 800;
-  border: 1px solid var(--gold) !important;
-  box-shadow: 0 4px 15px rgba(253, 29, 29, 0.3);
-  text-shadow: 0 1px 2px rgba(0,0,0,0.4);
-}
-
-/* Seções de Portfólio e Vitrine */
-.section-head h2 {
-  color: var(--text-white);
-  padding: 16px 16px 4px 16px;
-  font-size: 1.4rem;
-}
-
-.section-head span {
-  color: var(--gold);
-  padding: 0 16px;
-  font-size: 0.85rem;
-  text-transform: uppercase;
+.loyalty-tag {
+  font-size: 0.7rem;
+  color: #eed58a;
   letter-spacing: 1px;
+  display: block;
+  margin-bottom: 4px;
 }
 
-/* Barra de Navegação Inferior Premium */
-.bottom {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 70px;
-  background-color: #0e0d0a;
-  border-top: 1px solid rgba(238, 213, 138, 0.1);
+.loyalty-dots {
   display: flex;
-  justify-content: space-around;
-  align-items: center;
-  z-index: 100;
-  padding-bottom: var(--safe-bottom, 0px);
+  justify-content: center;
+  gap: 14px;
+  font-size: 2.2rem;
+  color: #a3a19e;
+  margin: 12px 0;
 }
 
-.bottom a {
-  color: var(--text-muted);
-  text-decoration: none;
-  font-size: 0.75rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
+.loyalty-counter {
+  font-size: 0.95rem;
+  color: #eed58a;
+  margin-bottom: 16px;
+  font-weight: 600;
 }
 
-.bottom a svg {
-  width: 22px;
-  height: 22px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 2;
-}
-
-.bottom a[aria-current="page"] {
-  color: var(--gold) !important;
-}
-
-/* Botão Flutuante do WhatsApp Ajustado */
-.wa-fab {
-  position: fixed;
-  bottom: calc(82px + var(--safe-bottom, 0px)) !important;
-  right: 16px !important;
-  z-index: 99;
-  transition: transform 0.2s ease;
-}
-
-.wa-fab img {
-  filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.4));
-}
-
-.wa-fab:active {
-  transform: scale(0.92);
-}
 
 
 
