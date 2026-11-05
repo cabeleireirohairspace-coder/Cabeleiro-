@@ -1,4 +1,3 @@
-// Captura do evento de instalação nativa do PWA para o botão "Baixar App"
 let deferredPrompt;
 window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
@@ -13,13 +12,12 @@ document.getElementById('installBtn')?.addEventListener('click', async () => {
     if (deferredPrompt) {
         deferredPrompt.prompt();
         const { outcome } = await deferredPrompt.userChoice;
-        console.log(`Escolha de instalação do usuário: ${outcome}`);
+        console.log(`Instalação: ${outcome}`);
         deferredPrompt = null;
         document.getElementById('installBtn').style.display = 'none';
     }
 });
 
-// Controle de Alternância de Telas Original
 function showScreen(screenId) {
     document.querySelectorAll('.screen').forEach(screen => {
         screen.classList.remove('active');
@@ -40,9 +38,7 @@ function showScreen(screenId) {
     }
 }
 
-// Injeção Dinâmica dos Elementos do config.js
 document.addEventListener("DOMContentLoaded", () => {
-    // 1. Renderizar estritamente as 6 imagens na Vitrine Principal (Início)
     const vitrineContainer = document.getElementById('vitrineContainer');
     if (vitrineContainer && typeof CONFIG !== 'undefined' && CONFIG.vitrineImagens) {
         vitrineContainer.innerHTML = CONFIG.vitrineImagens.map(imgSrc => `
@@ -50,16 +46,20 @@ document.addEventListener("DOMContentLoaded", () => {
         `).join('');
     }
 
-    // 2. Renderizar TODAS as imagens na Aba da Galeria Completa
     const galleryContainer = document.getElementById('galleryContainer');
     if (galleryContainer && typeof CONFIG !== 'undefined') {
         const todasImagens = [...CONFIG.vitrineImagens, ...CONFIG.galeriaImagens];
         galleryContainer.innerHTML = todasImagens.map(imgSrc => `
-            <img src="${imgSrc}" alt="Galeria Completa Hair Space" loading="lazy">
+            <img src="${imgSrc}" alt="Galeria Completa" loading="lazy">
         `).join('');
     }
 
-    // 3. Alimentar os selects do formulário de agendamento
+    if (typeof CONFIG !== 'undefined' && CONFIG.instagramUrl) {
+        document.querySelectorAll('a[href="https://instagram.com"]').forEach(link => {
+            link.href = CONFIG.instagramUrl;
+        });
+    }
+
     const serviceSelect = document.getElementById('service');
     if (serviceSelect && typeof CONFIG !== 'undefined' && CONFIG.servicos) {
         serviceSelect.innerHTML = '<option value="" disabled selected>Selecione um serviço</option>';
@@ -83,7 +83,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-// Envio de Dados via API do WhatsApp
 function sendToWhatsApp() {
     if (typeof CONFIG === 'undefined') return;
     
@@ -95,7 +94,7 @@ function sendToWhatsApp() {
     const time = document.getElementById('time').value;
 
     if (!name || !service || !barber || !date || !time) {
-        alert("Por favor, preencha todos os campos antes de continuar.");
+        alert("Por favor, preencha todos os campos.");
         return;
     }
 
@@ -115,12 +114,11 @@ function sendToWhatsApp() {
     window.open(whatsappUrl, '_blank');
 }
 
-// Ativação Offline (Service Worker)
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('sw.js')
-            .then(reg => console.log('PWA carregado offline!', reg))
-            .catch(err => console.log('Erro de SW:', err));
+            .then(reg => console.log('SW ativo!', reg))
+            .catch(err => console.log('Erro SW:', err));
     });
 }
 
