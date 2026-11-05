@@ -42,38 +42,26 @@ function showScreen(screenId) {
 
 // Injeção Dinâmica dos Elementos do config.js
 document.addEventListener("DOMContentLoaded", () => {
-    // 1. Renderizar Serviços na Seção de Preços
-    const servicesContainer = document.getElementById('servicesContainer');
-    if (servicesContainer && typeof CONFIG !== 'undefined' && CONFIG.servicos) {
-        servicesContainer.innerHTML = CONFIG.servicos.map(s => `
-            <div class="service">
-                <div>
-                    <strong>${s.nome}</strong>
-                    <small>Procedimento premium</small>
-                </div>
-                <div class="price">R$ ${s.preco.toFixed(2).replace('.', ',')}</div>
-            </div>
-        `).join('');
-    }
-
-    // 2. Renderizar estritamente as 6 imagens na Vitrine Principal (Início)
+    // 1. Renderizar estritamente as 6 imagens na Vitrine Principal (Início)
+    // CORREÇÃO: Removido o "/" inicial para buscar o arquivo relativo à raiz do repositório
     const vitrineContainer = document.getElementById('vitrineContainer');
     if (vitrineContainer && typeof CONFIG !== 'undefined' && CONFIG.vitrineImagens) {
         vitrineContainer.innerHTML = CONFIG.vitrineImagens.map(imgSrc => `
-            <img src="/${imgSrc}" alt="Vitrine Hair Space" loading="lazy">
+            <img src="${imgSrc}" alt="Vitrine Hair Space" loading="lazy">
         `).join('');
     }
 
-    // 3. Renderizar TODAS as imagens na Aba da Galeria Completa
+    // 2. Renderizar TODAS as imagens na Aba da Galeria Completa
+    // CORREÇÃO: Removido o "/" inicial para carregar corretamente
     const galleryContainer = document.getElementById('galleryContainer');
     if (galleryContainer && typeof CONFIG !== 'undefined') {
         const todasImagens = [...CONFIG.vitrineImagens, ...CONFIG.galeriaImagens];
         galleryContainer.innerHTML = todasImagens.map(imgSrc => `
-            <img src="/${imgSrc}" alt="Galeria Completa Hair Space" loading="lazy">
+            <img src="${imgSrc}" alt="Galeria Completa Hair Space" loading="lazy">
         `).join('');
     }
 
-    // 4. Injetar opções nos selects do formulário
+    // 3. Injetar opções nos selects do formulário
     const serviceSelect = document.getElementById('service');
     if (serviceSelect && typeof CONFIG !== 'undefined' && CONFIG.servicos) {
         serviceSelect.innerHTML = '<option value="" disabled selected>Selecione um serviço</option>';
@@ -137,3 +125,4 @@ if ('serviceWorker' in navigator) {
             .catch(err => console.log('Erro de SW:', err));
     });
 }
+
