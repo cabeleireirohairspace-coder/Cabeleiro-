@@ -1,25 +1,116 @@
-/* Destaque Premium para o Botão do Instagram */
-.btn-insta {
-  background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045) !important;
-  color: #ffffff !important;
-  font-weight: 800;
-  border: 1px solid var(--gold, #d4af37) !important;
-  box-shadow: 0 4px 15px rgba(253, 29, 29, 0.3);
-  text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+/* 1. Definição das cores oficiais da Hair Space */
+:root {
+  --bg-app: #0a0907;        /* Fundo escuro aquecido extraído do print */
+  --bg-card: #19150d;       /* Tom marrom-escuro do card principal */
+  --gold: #eed58a;          /* O dourado suave e pastel oficial */
+  --gold-dark: #e8c874;     /* Dourado para efeitos de clique */
+  --text-white: #ffffff;
+  --text-muted: #a3a19e;
 }
 
-/* Fix e Alinhamento de Área Segura do Botão Flutuante do WhatsApp */
-.wa-fab {
-  position: fixed;
-  bottom: calc(76px + var(--safe-bottom, 0px)) !important;
-  right: 16px !important;
-  z-index: 99;
-  transition: transform 0.2s ease;
+/* 2. Reset básico e aplicação do fundo escuro em toda a página */
+* {
+  margin: 0;
+  padding: 0;
+  box-shadow: border-box;
 }
-.wa-fab img {
-  filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.4));
+
+body, html {
+  background-color: var(--bg-app) !important;
+  color: var(--text-white) !important;
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
 }
-.wa-fab:active {
-  transform: scale(0.92);
+
+/* 3. Estilização do container do App e cabeçalho */
+.app {
+  background-color: var(--bg-app);
+  min-height: 100vh;
+  padding-bottom: 80px; /* Espaço para não cobrir o menu inferior */
 }
+
+header {
+  background-color: var(--bg-app);
+  border-bottom: 1px solid rgba(238, 213, 138, 0.1);
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header strong {
+  color: var(--text-white);
+}
+
+header small {
+  color: var(--gold);
+}
+
+/* 4. Estilização do Bloco Hero (Seu Estilo. Nosso Trabalho) */
+.hero {
+  padding: 16px;
+}
+
+.hero-card {
+  background-color: var(--bg-card) !important;
+  border-radius: 24px;
+  padding: 24px;
+  border: 1px solid rgba(238, 213, 138, 0.15);
+}
+
+.hero h1 {
+  color: var(--text-white);
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+
+.hero p {
+  color: var(--text-muted);
+  margin-bottom: 20px;
+  font-size: 1rem;
+}
+
+/* 5. Ajuste do Botão Principal para ficar idêntico ao da foto */
+.btn {
+  background-color: var(--gold) !important;
+  color: #0a0907 !important;
+  font-weight: 700;
+  padding: 14px 24px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn:active {
+  background-color: var(--gold-dark) !important;
+  transform: scale(0.98);
+}
+
+.btn.block {
+  display: flex;
+  width: 100%;
+}
+
+/* 6. Títulos das Seções */
+.section-head h2 {
+  color: var(--text-white);
+  padding: 16px 16px 4px 16px;
+}
+
+.section-head span {
+  color: var(--gold);
+  padding: 0 16px;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
 
