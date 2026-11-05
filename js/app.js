@@ -1,23 +1,4 @@
-let deferredPrompt;
-window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    const installBtn = document.getElementById('installBtn');
-    if (installBtn) {
-        installBtn.style.display = 'inline-flex';
-    }
-});
-
-document.getElementById('installBtn')?.addEventListener('click', async () => {
-    if (deferredPrompt) {
-        deferredPrompt.prompt();
-        const { outcome } = await deferredPrompt.userChoice;
-        console.log(`Instalação: ${outcome}`);
-        deferredPrompt = null;
-        document.getElementById('installBtn').style.display = 'none';
-    }
-});
-
+// Controle de Alternância de Telas
 function showScreen(screenId) {
     document.querySelectorAll('.screen').forEach(screen => {
         screen.classList.remove('active');
@@ -38,7 +19,9 @@ function showScreen(screenId) {
     }
 }
 
+// Injeção Dinâmica dos Elementos do config.js
 document.addEventListener("DOMContentLoaded", () => {
+    // 1. Renderizar as 6 imagens na Vitrine Principal (Início)
     const vitrineContainer = document.getElementById('vitrineContainer');
     if (vitrineContainer && typeof CONFIG !== 'undefined' && CONFIG.vitrineImagens) {
         vitrineContainer.innerHTML = CONFIG.vitrineImagens.map(imgSrc => `
@@ -46,20 +29,23 @@ document.addEventListener("DOMContentLoaded", () => {
         `).join('');
     }
 
+    // 2. Renderizar TODAS as imagens na Aba da Galeria Completa
     const galleryContainer = document.getElementById('galleryContainer');
     if (galleryContainer && typeof CONFIG !== 'undefined') {
         const todasImagens = [...CONFIG.vitrineImagens, ...CONFIG.galeriaImagens];
         galleryContainer.innerHTML = todasImagens.map(imgSrc => `
-            <img src="${imgSrc}" alt="Galeria Completa" loading="lazy">
+            <img src="${imgSrc}" alt="Galeria Completa Hair Space" loading="lazy">
         `).join('');
     }
 
+    // 3. Vincular a URL do Instagram do config.js aos botões do HTML
     if (typeof CONFIG !== 'undefined' && CONFIG.instagramUrl) {
         document.querySelectorAll('a[href="https://instagram.com"]').forEach(link => {
             link.href = CONFIG.instagramUrl;
         });
     }
 
+    // 4. Alimentar os selects do formulário de agendamento
     const serviceSelect = document.getElementById('service');
     if (serviceSelect && typeof CONFIG !== 'undefined' && CONFIG.servicos) {
         serviceSelect.innerHTML = '<option value="" disabled selected>Selecione um serviço</option>';
@@ -83,6 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
+// Envio de Dados via API do WhatsApp
 function sendToWhatsApp() {
     if (typeof CONFIG === 'undefined') return;
     
@@ -94,7 +81,7 @@ function sendToWhatsApp() {
     const time = document.getElementById('time').value;
 
     if (!name || !service || !barber || !date || !time) {
-        alert("Por favor, preencha todos os campos.");
+        alert("Por favor, preencha todos os campos antes de continuar.");
         return;
     }
 
@@ -114,12 +101,5 @@ function sendToWhatsApp() {
     window.open(whatsappUrl, '_blank');
 }
 
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('sw.js')
-            .then(reg => console.log('SW ativo!', reg))
-            .catch(err => console.log('Erro SW:', err));
-    });
-}
 
 
