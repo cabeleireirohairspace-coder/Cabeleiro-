@@ -1,5 +1,4 @@
 
-
 // Controle de Alternância de Telas (Mapeado com o CSS)
 function showScreen(screenId) {
     // Esconde todas as telas
@@ -24,11 +23,11 @@ function showScreen(screenId) {
     }
 }
 
-// Injeção Dinâmica Baseada no CONFIG (js/config.js)
+// Injeção Dinâmica Segura - Executa apenas após o HTML estar 100% pronto
 document.addEventListener("DOMContentLoaded", () => {
     // 1. Renderizar Serviços na Vitrine Principal
     const servicesContainer = document.getElementById('servicesContainer');
-    if (servicesContainer && CONFIG.servicos) {
+    if (servicesContainer && typeof CONFIG !== 'undefined' && CONFIG.servicos) {
         servicesContainer.innerHTML = CONFIG.servicos.map(s => `
             <div class="service">
                 <div>
@@ -40,10 +39,12 @@ document.addEventListener("DOMContentLoaded", () => {
         `).join('');
     }
 
-    // 2. Renderizar Imagens na Galeria Dinâmica (Unindo os dois Arrays do Config)
+    // 2. Renderizar Imagens na Galeria Dinâmica (Lendo os arquivos da raiz)
     const galleryContainer = document.getElementById('galleryContainer');
-    if (galleryContainer) {
+    if (galleryContainer && typeof CONFIG !== 'undefined') {
+        // Filtra e unifica apenas as imagens que você já subiu para a raiz
         const todasImagens = [...CONFIG.vitrineImagens, ...CONFIG.galeriaImagens];
+        
         galleryContainer.innerHTML = todasImagens.map(imgSrc => `
             <img src="${imgSrc}" alt="Trabalho Realizado Hair Space" loading="lazy">
         `).join('');
@@ -51,7 +52,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 3. Alimentar os Campos de Seleção do Formulário de Agendamento
     const serviceSelect = document.getElementById('service');
-    if (serviceSelect && CONFIG.servicos) {
+    if (serviceSelect && typeof CONFIG !== 'undefined' && CONFIG.servicos) {
+        // Limpa opções antigas estáticas se houverem
+        serviceSelect.innerHTML = '<option value="" disabled selected>Selecione um serviço</option>';
         CONFIG.servicos.forEach(s => {
             const opt = document.createElement('option');
             opt.value = `${s.nome} (R$ ${s.preco.toFixed(2).replace('.', ',')})`;
@@ -61,7 +64,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const barberSelect = document.getElementById('barber');
-    if (barberSelect && CONFIG.barbeiros) {
+    if (barberSelect && typeof CONFIG !== 'undefined' && CONFIG.barbeiros) {
+        barberSelect.innerHTML = '<option value="" disabled selected>Escolha o profissional</option>';
         CONFIG.barbeiros.forEach(b => {
             const opt = document.createElement('option');
             opt.value = b.nome;
@@ -73,6 +77,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Envio Inteligente ao WhatsApp integrado ao CONFIG
 function sendToWhatsApp() {
+    if (typeof CONFIG === 'undefined') return;
+    
     const phoneNumber = CONFIG.whatsappNumber; 
 
     const name = document.getElementById('name').value;
