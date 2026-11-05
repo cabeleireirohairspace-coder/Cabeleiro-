@@ -1,16 +1,33 @@
+// Captura do evento de instalação nativa do PWA para o botão "Baixar App"
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    const installBtn = document.getElementById('installBtn');
+    if (installBtn) {
+        installBtn.style.display = 'inline-flex';
+    }
+});
 
-// Controle de Alternância de Telas (Mapeado com o CSS)
+document.getElementById('installBtn')?.addEventListener('click', async () => {
+    if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        console.log(`Escolha de instalação do usuário: ${outcome}`);
+        deferredPrompt = null;
+        document.getElementById('installBtn').style.display = 'none';
+    }
+});
+
+// Controle de Alternância de Telas
 function showScreen(screenId) {
-    // Esconde todas as telas
     document.querySelectorAll('.screen').forEach(screen => {
         screen.classList.remove('active');
     });
-    // Remove marcação ativa do menu inferior
     document.querySelectorAll('.bottom a').forEach(nav => {
         nav.removeAttribute('aria-current');
     });
 
-    // Ativa a tela escolhida e marca o menu inferior correspondente
     const targetScreen = document.getElementById(screenId);
     if(targetScreen) {
         targetScreen.classList.add('active');
@@ -23,9 +40,9 @@ function showScreen(screenId) {
     }
 }
 
-// Injeção Dinâmica Segura - Executa apenas após o HTML estar 100% pronto
+// Injeção Dinâmica dos Elementos do config.js
 document.addEventListener("DOMContentLoaded", () => {
-    // 1. Renderizar Serviços na Vitrine Principal
+    // 1. Renderizar Serviços na Seção de Preços
     const servicesContainer = document.getElementById('servicesContainer');
     if (servicesContainer && typeof CONFIG !== 'undefined' && CONFIG.servicos) {
         servicesContainer.innerHTML = CONFIG.servicos.map(s => `
@@ -39,21 +56,26 @@ document.addEventListener("DOMContentLoaded", () => {
         `).join('');
     }
 
-    // 2. Renderizar Imagens na Galeria Dinâmica (Lendo os arquivos da raiz)
-    const galleryContainer = document.getElementById('galleryContainer');
-    if (galleryContainer && typeof CONFIG !== 'undefined') {
-        // Filtra e unifica apenas as imagens que você já subiu para a raiz
-        const todasImagens = [...CONFIG.vitrineImagens, ...CONFIG.galeriaImagens];
-        
-        galleryContainer.innerHTML = todasImagens.map(imgSrc => `
-            <img src="${imgSrc}" alt="Trabalho Realizado Hair Space" loading="lazy">
+    // 2. Renderizar estritamente as 6 imagens na Vitrine Principal (Início)
+    const vitrineContainer = document.getElementById('vitrineContainer');
+    if (vitrineContainer && typeof CONFIG !== 'undefined' && CONFIG.vitrineImagens) {
+        vitrineContainer.innerHTML = CONFIG.vitrineImagens.map(imgSrc => `
+            <img src="/${imgSrc}" alt="Vitrine Hair Space" loading="lazy">
         `).join('');
     }
 
-    // 3. Alimentar os Campos de Seleção do Formulário de Agendamento
+    // 3. Renderizar TODAS as imagens na Aba da Galeria Completa
+    const galleryContainer = document.getElementById('galleryContainer');
+    if (galleryContainer && typeof CONFIG !== 'undefined') {
+        const todasImagens = [...CONFIG.vitrineImagens, ...CONFIG.galeriaImagens];
+        galleryContainer.innerHTML = todasImagens.map(imgSrc => `
+            <img src="/${imgSrc}" alt="Galeria Completa Hair Space" loading="lazy">
+        `).join('');
+    }
+
+    // 4. Injetar opções nos selects do formulário
     const serviceSelect = document.getElementById('service');
     if (serviceSelect && typeof CONFIG !== 'undefined' && CONFIG.servicos) {
-        // Limpa opções antigas estáticas se houverem
         serviceSelect.innerHTML = '<option value="" disabled selected>Selecione um serviço</option>';
         CONFIG.servicos.forEach(s => {
             const opt = document.createElement('option');
@@ -75,12 +97,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-// Envio Inteligente ao WhatsApp integrado ao CONFIG
+// Envio de Dados via API do WhatsApp
 function sendToWhatsApp() {
     if (typeof CONFIG === 'undefined') return;
     
     const phoneNumber = CONFIG.whatsappNumber; 
-
     const name = document.getElementById('name').value;
     const service = document.getElementById('service').value;
     const barber = document.getElementById('barber').value;
@@ -108,11 +129,11 @@ function sendToWhatsApp() {
     window.open(whatsappUrl, '_blank');
 }
 
-// Inicialização do Service Worker para PWA
+// Ativação Offline (Service Worker)
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('/sw.js')
-            .then(reg => console.log('PWA Service Worker ativo!', reg))
-            .catch(err => console.log('Falha ao instanciar SW offline', err));
+            .then(reg => console.log('PWA carregado offline!', reg))
+            .catch(err => console.log('Erro de SW:', err));
     });
 }
