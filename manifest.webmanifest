@@ -1,23 +1,38 @@
 {
-  "id": "./",
-  "name": "Hair Space | Barbearia Premium",
+  "name": "HAIR SPACE | Barbearia Premium",
   "short_name": "Hair Space",
-  "description": "Veja nossos trabalhos, agende seu horário e acompanhe o Clube Hair Space.",
-  "lang": "pt-BR",
-  "start_url": "./",
-  "scope": "./",
+  "start_url": "index.html",
   "display": "standalone",
-  "orientation": "portrait",
-  "background_color": "#090909",
-  "theme_color": "#090909",
-  "categories": ["lifestyle", "beauty"],
+  "background_color": "#121212",
+  "theme_color": "#d4af37",
+  "orientation": "portrait-primary",
   "icons": [
-    { "src": "assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
-    { "src": "assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "assets/icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
-  ],
-  "shortcuts": [
-    { "name": "Agendar horário", "url": "./#agendar", "icons": [{ "src": "assets/icons/icon-192.png", "sizes": "192x192" }] },
-    { "name": "Galeria", "url": "./#galeria", "icons": [{ "src": "assets/icons/icon-192.png", "sizes": "192x192" }] }
+    {
+      "src": "assets/icons/favicon-48.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
   ]
 }
+
