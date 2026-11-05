@@ -1,18 +1,18 @@
-/* 1. Definição das cores oficiais da Hair Space */
+/* Definição das cores oficiais da Hair Space conforme imagem */
 :root {
-  --bg-app: #0a0907;        /* Fundo escuro aquecido extraído do print */
-  --bg-card: #19150d;       /* Tom marrom-escuro do card principal */
-  --gold: #eed58a;          /* O dourado suave e pastel oficial */
-  --gold-dark: #e8c874;     /* Dourado para efeitos de clique */
+  --bg-app: #0a0907;        /* Fundo escuro quente */
+  --bg-card: #19150d;       /* Fundo marrom-escuro do card principal */
+  --gold: #eed58a;          /* Dourado suave pastel */
+  --gold-dark: #e8c874;     /* Dourado de compressão/clique */
   --text-white: #ffffff;
   --text-muted: #a3a19e;
 }
 
-/* 2. Reset básico e aplicação do fundo escuro em toda a página */
+/* Reset básico global */
 * {
   margin: 0;
   padding: 0;
-  box-shadow: border-box;
+  box-sizing: border-box;
 }
 
 body, html {
@@ -22,11 +22,10 @@ body, html {
   min-height: 100vh;
 }
 
-/* 3. Estilização do container do App e cabeçalho */
 .app {
   background-color: var(--bg-app);
   min-height: 100vh;
-  padding-bottom: 80px; /* Espaço para não cobrir o menu inferior */
+  padding-bottom: 90px;
 }
 
 header {
@@ -38,15 +37,16 @@ header {
   align-items: center;
 }
 
-header strong {
-  color: var(--text-white);
-}
-
-header small {
+.badge-destaque {
+  font-size: 11px;
   color: var(--gold);
+  border: 1px solid rgba(238, 213, 138, 0.3);
+  padding: 6px 12px;
+  border-radius: 20px;
+  background-color: rgba(25, 21, 13, 0.5);
 }
 
-/* 4. Estilização do Bloco Hero (Seu Estilo. Nosso Trabalho) */
+/* Estruturação da Seção Hero */
 .hero {
   padding: 16px;
 }
@@ -60,7 +60,7 @@ header small {
 
 .hero h1 {
   color: var(--text-white);
-  font-size: 2.5rem;
+  font-size: 2.2rem;
   font-weight: 800;
   line-height: 1.2;
   margin-bottom: 12px;
@@ -69,10 +69,94 @@ header small {
 .hero p {
   color: var(--text-muted);
   margin-bottom: 20px;
-  font-size: 1rem;
+  font-size: 0.95rem;
 }
 
-/* 5. Ajuste do Botão Principal para ficar idêntico ao da foto */
+/* Novo Grid de Recursos (Baseado no layout enviado) */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  padding: 0 16px 24px 16px;
+}
+
+.feature-box {
+  background-color: var(--bg-card);
+  border: 1px solid rgba(238, 213, 138, 0.1);
+  border-radius: 16px;
+  padding: 16px 8px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.feature-icon {
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+}
+
+.feature-box h3 {
+  font-size: 0.8rem;
+  color: var(--text-white);
+  font-weight: 600;
+}
+
+/* Redesenho do Bloco de Fidelidade VIP */
+.loyalty-premium {
+  background-color: var(--bg-card);
+  border: 1px solid rgba(238, 213, 138, 0.15);
+  border-radius: 24px;
+  padding: 24px;
+  margin: 16px;
+  text-align: center;
+}
+
+.loyalty-eyebrow {
+  font-size: 0.75rem;
+  color: var(--gold);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.loyalty-premium h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.loyalty-note {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
+.loyalty-steps {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  font-size: 2rem;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.loyalty-status {
+  font-size: 1.1rem;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+
+.loyalty-desc {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+  line-height: 1.4;
+}
+
+/* Botões Customizados */
 .btn {
   background-color: var(--gold) !important;
   color: #0a0907 !important;
@@ -86,12 +170,13 @@ header small {
   justify-content: center;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  font-size: 0.85rem;
   transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
 .btn:active {
   background-color: var(--gold-dark) !important;
-  transform: scale(0.98);
+  transform: scale(0.97);
 }
 
 .btn.block {
@@ -99,10 +184,20 @@ header small {
   width: 100%;
 }
 
-/* 6. Títulos das Seções */
+.btn-insta {
+  background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045) !important;
+  color: #ffffff !important;
+  font-weight: 800;
+  border: 1px solid var(--gold) !important;
+  box-shadow: 0 4px 15px rgba(253, 29, 29, 0.3);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+}
+
+/* Seções de Portfólio e Vitrine */
 .section-head h2 {
   color: var(--text-white);
   padding: 16px 16px 4px 16px;
+  font-size: 1.4rem;
 }
 
 .section-head span {
@@ -112,5 +207,61 @@ header small {
   text-transform: uppercase;
   letter-spacing: 1px;
 }
+
+/* Barra de Navegação Inferior Premium */
+.bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  background-color: #0e0d0a;
+  border-top: 1px solid rgba(238, 213, 138, 0.1);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 100;
+  padding-bottom: var(--safe-bottom, 0px);
+}
+
+.bottom a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.bottom a svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+}
+
+.bottom a[aria-current="page"] {
+  color: var(--gold) !important;
+}
+
+/* Botão Flutuante do WhatsApp Ajustado */
+.wa-fab {
+  position: fixed;
+  bottom: calc(82px + var(--safe-bottom, 0px)) !important;
+  right: 16px !important;
+  z-index: 99;
+  transition: transform 0.2s ease;
+}
+
+.wa-fab img {
+  filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.4));
+}
+
+.wa-fab:active {
+  transform: scale(0.92);
+}
+
 
 
