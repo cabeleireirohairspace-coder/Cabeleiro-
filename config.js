@@ -1,19 +1,17 @@
 const CONFIG = {
   whatsappNumber: "5511947983217",
   barbeariaName: "Hair Space",
-  instagramUrl: "https://www.instagram.com/hairspace_oficial",
+  instagramUrl: "https://instagram.com",
   
-  // As 6 imagens reais enviadas que aparecerão direto na Vitrine (Tela Início)
   vitrineImagens: [
-    "degrade-desenho.webp",      // Foto 1: Infantil com desenho de coração
-    "mechas-rosas.webp",         // Foto 2: Pompadour com mechas rosas
-    "pompadour-degrade.webp",    // Foto 3: Topete loiro texturizado
-    "social-risca.webp",         // Foto 4: Buzz cut com risca lateral
-    "risca-lateral-barba.webp",  // Foto 5: Conectando com a barba
-    "risco-duplo.webp"           // Foto 6: Pompadour escovado com risco duplo
+    "degrade-desenho.webp",
+    "mechas-rosas.webp",
+    "pompadour-degrade.webp",
+    "social-risca.webp",
+    "risca-lateral-barba.webp",
+    "risco-duplo.webp"
   ],
   
-  // Fotos adicionais para a galeria completa
   galeriaImagens: [
     "cacheado-degrade.webp",
     "cacheado-tijolinho.webp",
@@ -40,5 +38,6 @@ const CONFIG = {
     { id: "barbeiro2", nome: "Profissional 2" }
   ]
 };
+
 
 
