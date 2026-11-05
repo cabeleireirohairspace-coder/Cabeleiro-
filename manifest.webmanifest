@@ -3,8 +3,8 @@
   "short_name": "Hair Space",
   "start_url": "index.html",
   "display": "standalone",
-  "background_color": "#121212",
-  "theme_color": "#d4af37",
+  "background_color": "#0a0907",
+  "theme_color": "#eed58a",
   "orientation": "portrait-primary",
   "icons": [
     {
@@ -35,4 +35,5 @@
     }
   ]
 }
+
 
