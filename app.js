@@ -1,157 +1,164 @@
-(function () {
-  "use strict";
-  var C = window.HAIRSPACE;
-  var $ = function (s, r) { return (r || document).querySelector(s); };
-  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
-  var brl = function (n) { return "R$ " + n; };
+// Aguarda o carregamento do DOM para iniciar o app
+document.addEventListener("DOMContentLoaded", () => {
+    initApp();
+});
 
-  /* ---------- Conteúdo a partir da config ---------- */
-  function imgTag(src, alt, pos) {
-    var style = pos ? ' style="object-position:' + pos + '"' : "";
-    return '<img src="' + src + '" alt="' + alt + '" width="360" height="480" loading="lazy" decoding="async"' + style + ">";
-  }
-  $("#vitrine").innerHTML = C.vitrine.map(function (f) { return imgTag(f.src, f.alt, f.pos); }).join("");
-  $("#galeriaGrid").innerHTML = C.galeria.map(function (l) {
-    var p = l.split("|"); return imgTag(p[0], p[1] || "Trabalho da Hair Space");
-  }).join("");
+function initApp() {
+    renderVitrine();
+    renderGaleria();
+    renderServicos();
+    renderBarbeiros();
+    setupForm();
+    setupNavigation();
+}
 
-  $("#servicos").innerHTML = C.servicos.map(function (s) {
-    return '<div class="service"><div><strong>' + s.nome + "</strong><small>" + s.desc + '</small></div><div class="price">' + brl(s.preco) + "</div></div>";
-  }).join("");
-  $("#servico").innerHTML = C.servicos.map(function (s) {
-    return "<option>" + s.nome + " — " + brl(s.preco) + "</option>";
-  }).join("");
-  $("#barbeiro").innerHTML = C.barbeiros.map(function (b) { return "<option>" + b + "</option>"; }).join("");
-  $("#regras").innerHTML = (C.regras || []).map(function (r) { return "<li>" + r + "</li>"; }).join("");
+// Renderiza as 6 imagens da Vitrine Principal
+function renderVitrine() {
+    const gridVitrine = document.querySelector(".grid-vitrine");
+    if (!gridVitrine) return;
 
-  var wa = "https://wa.me/" + C.whatsapp;
-  $("#contato").innerHTML =
-    "<p>📍 " + C.endereco + ' — <a href="' + C.mapaUrl + '" target="_blank" rel="noopener">ver no mapa</a></p>' +
-    (C.horarioFuncionamento ? "<p>🕘 " + C.horarioFuncionamento + "</p>" : "") +
-    '<p>📸 Instagram: <a href="https://instagram.com/' + C.instagram + '" target="_blank" rel="noopener">@' + C.instagram + "</a></p>" +
-    '<p>📲 WhatsApp: <a href="' + wa + '" target="_blank" rel="noopener">' + C.whatsappExibicao + "</a></p>" +
-    '<a class="btn block whats" href="' + wa + "?text=" + encodeURIComponent("Olá, quero agendar um horário na Hair Space.") + '" target="_blank" rel="noopener">FALAR NO WHATSAPP</a>';
-
-  $("#waFab").href = wa + "?text=" + encodeURIComponent("Olá, quero agendar um horário na Hair Space.");
-  $("#igBtn").href = "https://www.instagram.com/" + C.instagram;
-
-  /* ---------- Navegação (hash) ---------- */
-  var screens = ["home", "agendar", "galeria", "fidelidade"];
-  function route() {
-    var id = location.hash.replace("#", "");
-    if (screens.indexOf(id) < 0) id = "home";
-    $$(".screen").forEach(function (s) { s.classList.toggle("active", s.id === id); });
-    $$(".bottom a").forEach(function (a) {
-      if (a.dataset.screen === id) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
+    gridVitrine.innerHTML = ""; // Limpa conteúdo anterior
+    
+    // Pega as imagens definidas no config.js
+    CONFIG.vitrineImagens.forEach(url => {
+        const img = document.createElement("img");
+        img.src = url;
+        img.alt = "Corte Hair Space";
+        img.loading = "lazy";
+        gridVitrine.appendChild(img);
     });
-    window.scrollTo(0, 0);
-    var h = $("#" + id + " h2[tabindex], #" + id + " h3[tabindex]");
-    if (h && document.readyState === "complete") h.focus({ preventScroll: true });
-  }
-  window.addEventListener("hashchange", route);
-  route();
+}
 
-  /* ---------- Agendamento ---------- */
-  var dataEl = $("#data"), horaEl = $("#hora"), hint = $("#dataHint");
-  function iso(d) { return new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 10); }
-  dataEl.min = iso(new Date());
+// Renderiza as 16 imagens na Galeria Completa (Oculta por padrão)
+function renderGaleria() {
+    const gridGaleria = document.querySelector(".grid-galeria");
+    if (!gridGaleria) return;
 
-  function fillHours() {
-    var now = new Date(), v = dataEl.value, slots = C.horarios.slice();
-    hint.hidden = true; dataEl.setCustomValidity("");
-    if (v) {
-      var d = new Date(v + "T12:00:00");
-      if (C.diasFechados.indexOf(d.getDay()) >= 0) {
-        slots = []; hint.textContent = "Fechado neste dia. Escolha outra data."; hint.hidden = false;
-        dataEl.setCustomValidity("Dia fechado");
-      } else if (v === iso(now)) {
-        slots = slots.filter(function (h) {
-          var p = h.split(":"); var t = new Date(); t.setHours(+p[0], +p[1], 0, 0); return t > now;
+    gridGaleria.innerHTML = ""; // Limpa conteúdo anterior
+
+    // Junta as imagens da vitrine com as da galeria para somar as 16 fotos
+    const todasImagens = [...CONFIG.vitrineImagens, ...CONFIG.galeriaImagens];
+
+    todasImagens.forEach(url => {
+        const img = document.createElement("img");
+        img.src = url;
+        img.alt = "Trabalho Real Hair Space";
+        img.loading = "lazy";
+        gridGaleria.appendChild(img);
+    });
+
+    // Lógica para abrir/fechar a galeria ao clicar no botão
+    const btnVerGaleria = document.getElementById("btn-ver-galeria");
+    const secaoGaleria = document.getElementById("galeria-completa");
+
+    if (btnVerGaleria && secaoGaleria) {
+        btnVerGaleria.addEventListener("click", () => {
+            if (secaoGaleria.classList.contains("galeria-oculta")) {
+                secaoGaleria.classList.remove("galeria-oculta");
+                secaoGaleria.classList.add("galeria-visivel");
+                btnVerGaleria.textContent = "FECHAR GALERIA";
+                secaoGaleria.scrollIntoView({ behavior: "smooth" });
+            } else {
+                secaoGaleria.classList.remove("galeria-visivel");
+                secaoGaleria.classList.add("galeria-oculta");
+                btnVerGaleria.textContent = "VER GALERIA COMPLETA";
+            }
         });
-        if (!slots.length) { hint.textContent = "Não há mais horários hoje. Escolha outra data."; hint.hidden = false; }
-      }
     }
-    horaEl.innerHTML = slots.length ? slots.map(function (h) { return "<option>" + h + "</option>"; }).join("") : "<option value=''>Sem horários</option>";
-    horaEl.disabled = !slots.length;
-  }
-  dataEl.addEventListener("change", fillHours);
-  fillHours();
+}
 
-  $("#booking").addEventListener("submit", function (e) {
-    e.preventDefault();
-    var nome = $("#nome").value.trim();
-    if (!nome) { $("#nome").focus(); return; }
-    if (!dataEl.value) { dataEl.focus(); return; }
-    if (!dataEl.checkValidity() || horaEl.disabled || !horaEl.value) { dataEl.focus(); return; }
-    var d = new Date(dataEl.value + "T12:00:00").toLocaleDateString("pt-BR");
-    var texto = [
-      "Olá, Hair Space! Quero solicitar um agendamento.", "",
-      "Nome: " + nome,
-      "Serviço: " + $("#servico").value,
-      "Barbeiro: " + $("#barbeiro").value,
-      "Data: " + d,
-      "Horário desejado: " + horaEl.value, "",
-      "Podem confirmar a disponibilidade?"
-    ].join("\n");
-    var a = document.createElement("a");
-    a.href = wa + "?text=" + encodeURIComponent(texto);
-    a.target = "_blank"; a.rel = "noopener";
-    document.body.appendChild(a); a.click(); a.remove();
-  });
+// Renderiza as opções de Serviços em destaque com seus preços
+function renderServicos() {
+    const menuServicos = document.getElementById("menu-servicos");
+    const selectServico = document.getElementById("servico");
+    if (!menuServicos) return;
 
-  /* ---------- Instalar app (PWA) ---------- */
-  var deferred = null;
-  var ua = navigator.userAgent || "";
-  var isIOS = /iPhone|iPad|iPod/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-  var inApp = /Instagram|FBAN|FBAV|FB_IAB|Line\/|MicroMessenger|TikTok/i.test(ua);
-  var isAndroid = /Android/.test(ua);
-  function isInstalled() {
-    return window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
-  }
-  function syncInstallUI() {
-    var show = !isInstalled();
-    $$("[data-install]").forEach(function (b) { b.hidden = !show; });
-    $$("[data-install-section]").forEach(function (s) { s.hidden = !show; });
-  }
-  syncInstallUI();
-  window.addEventListener("beforeinstallprompt", function (e) { e.preventDefault(); deferred = e; });
-  window.addEventListener("appinstalled", function () { deferred = null; syncInstallUI(); });
+    menuServicos.innerHTML = "";
+    if (selectServico) selectServico.innerHTML = "";
 
-  var sheet = $("#installSheet");
-  function openSheet(titulo, intro, passos) {
-    $("#installTitle").textContent = titulo;
-    $("#installIntro").textContent = intro;
-    $("#installSteps").innerHTML = passos.map(function (p) { return "<li>" + p + "</li>"; }).join("");
-    if (sheet.showModal) sheet.showModal(); else sheet.setAttribute("open", "");
-  }
-  $("#installClose").addEventListener("click", function () { sheet.close ? sheet.close() : sheet.removeAttribute("open"); });
-  sheet.addEventListener("click", function (e) { if (e.target === sheet) sheet.close(); });
+    CONFIG.servicos.forEach(servico => {
+        // Cria a lista visual dos serviços em destaque
+        const item = document.createElement("div");
+        item.className = "servico-item";
+        item.innerHTML = `
+            <div class="servico-info">
+                <strong>${servico.nome}</strong>
+                <p>${servico.id === "combo" ? "Visual completo" : "Finalização e estilo"}</p>
+            </div>
+            <span class="servico-preco">R$ ${servico.preco.toFixed(2)}</span>
+        `;
+        menuServicos.appendChild(item);
 
-  function onInstall() {
-    if (deferred) {
-      var p = deferred; deferred = null;
-      p.prompt();
-      p.userChoice.then(syncInstallUI);
-      return;
-    }
-    if (inApp) {
-      openSheet("Abra no navegador", "O navegador do Instagram não permite instalar apps. Abra esta página no " + (isIOS ? "Safari" : "Chrome") + ":",
-        ["Toque nos <strong>três pontinhos</strong> (⋯ ou ⋮) no canto da tela", "Escolha <strong>Abrir no navegador</strong>", "Depois toque em <strong>Baixar app</strong> de novo"]);
-    } else if (isIOS) {
-      openSheet("Instalar no iPhone", "No iPhone, a instalação é feita pelo Safari:",
-        ["Abra esta página no <strong>Safari</strong>", "Toque no botão <strong>Compartilhar</strong> (quadrado com seta)", "Escolha <strong>Adicionar à Tela de Início</strong>", "Toque em <strong>Adicionar</strong>"]);
-    } else if (isAndroid) {
-      openSheet("Instalar no Android", "Pelo Chrome, em poucos toques:",
-        ["Toque nos <strong>três pontinhos</strong> (⋮) no canto superior", "Escolha <strong>Instalar app</strong> ou <strong>Adicionar à tela inicial</strong>", "Confirme em <strong>Instalar</strong>"]);
-    } else {
-      openSheet("Instalar no computador", "No Chrome ou Edge:",
-        ["Clique no ícone de <strong>instalar</strong> na barra de endereço", "Ou abra o menu ⋮ e escolha <strong>Instalar Hair Space</strong>"]);
-    }
-  }
-  $$("[data-install]").forEach(function (b) { b.addEventListener("click", onInstall); });
+        // Preenche o <select> do formulário de agendamento
+        if (selectServico) {
+            const option = document.createElement("option");
+            option.value = servico.nome;
+            option.textContent = `${servico.nome} - R$ ${servico.preco.toFixed(2)}`;
+            selectServico.appendChild(option);
+        }
+    });
+}
 
-  /* ---------- Service worker ---------- */
-  if ("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost")) {
-    window.addEventListener("load", function () { navigator.serviceWorker.register("sw.js").catch(function () {}); });
-  }
-})();
+// Renderiza a lista de barbeiros no formulário
+function renderBarbeiros() {
+    const selectBarbeiro = document.getElementById("barbeiro");
+    if (!selectBarbeiro) return;
+
+    selectBarbeiro.innerHTML = "";
+    CONFIG.barbeiros.forEach(barbeiro => {
+        const option = document.createElement("option");
+        option.value = barbeiro.nome;
+        option.textContent = barbeiro.nome;
+        selectBarbeiro.appendChild(option);
+    });
+}
+
+// Configura o envio do formulário direcionando para o WhatsApp correto
+function setupForm() {
+    const form = document.getElementById("form-reserva");
+    if (!form) return;
+
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const nome = document.getElementById("nome").value;
+        const servico = document.getElementById("servico").value;
+        const barbeiro = document.getElementById("barbeiro").value;
+        const dataInput = document.getElementById("data").value;
+        const horario = document.getElementById("horario").value;
+
+        // Formata a data para o padrão brasileiro (DD/MM/AAAA)
+        const dataFormatada = dataInput.split("-").reverse().join("/");
+
+        // Monta a mensagem de texto estruturada
+        const textoMessage = `Olá, gostaria de agendar um horário!\n\n` +
+                             `*Nome:* ${nome}\n` +
+                             `*Serviço:* ${servico}\n` +
+                             `*Barbeiro:* ${barbeiro}\n` +
+                             `*Data:* ${dataFormatada}\n` +
+                             `*Horário:* ${horario}`;
+
+        const urlWhats = `https://whatsapp.com{CONFIG.whatsappNumber}&text=${encodeURIComponent(textoMessage)}`;
+        
+        // Abre o WhatsApp em uma nova aba
+        window.open(urlWhats, "_blank");
+    });
+}
+
+// Controla a navegação suave do menu inferior (Navbar)
+function setupNavigation() {
+    const links = document.querySelectorAll("footer a, .btn-primary");
+    links.forEach(link => {
+        link.addEventListener("click", (e) => {
+            const href = link.getAttribute("href");
+            if (href.startsWith("#")) {
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    target.scrollIntoView({ behavior: "smooth" });
+                }
+            }
+        });
+    });
+}
+
