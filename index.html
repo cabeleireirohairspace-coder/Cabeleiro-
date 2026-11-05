@@ -1,138 +1,156 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HAIR SPACE - Barbearia Premium</title>
+    <title>HAIR SPACE | Barbearia Premium</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="manifest" href="manifest.webmanifest">
-    <!-- FontAwesome para os ícones do WhatsApp e Instagram -->
-    <link rel="stylesheet" href="https://cloudflare.com">
+    <!-- Google Fonts para um visual elegante -->
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Cinzel:wght@500;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- Header / Topo -->
-    <header>
-        <img src="assets/img/logo-header.webp" alt="Logo Hair Space" class="logo">
-        <h1>HAIR SPACE</h1>
-        <p class="subtitle">Barbearia Premium • Cidade A. E. Carvalho</p>
+    <!-- Header / Navbar -->
+    <header class="header">
+        <div class="container header-content">
+            <img src="assets/img/logo-header.webp" alt="Logo Hair Space" class="logo">
+            <nav class="nav">
+                <a href="#inicio">Início</a>
+                <a href="#vitrine">Vitrine</a>
+                <a href="#galeria">Galeria</a>
+                <a href="#clube">Clube Fidelidade</a>
+                <a href="#agendamento" class="btn-nav">Agendar</a>
+            </nav>
+        </div>
     </header>
 
-    <!-- Banner Principal -->
-    <section class="hero">
-        <h2>Seu estilo.<br>Nosso trabalho.</h2>
-        <p>Veja alguns dos cortes feitos na Hair Space e escolha seu próximo visual.</p>
-        <a href="#agendamento" class="btn-primary">AGENDAR MEU HORÁRIO →</a>
-    </section>
-
-    <!-- Vitrine (6 Imagens) -->
-    <section class="vitrine">
-        <h3>Vitrine Hair Space</h3>
-        <p class="section-subtitle">Trabalhos reais</p>
-        
-        <div class="grid-vitrine">
-            <img src="assets/img/vitrine/risca-lateral-barba.webp" alt="Corte Hair Space">
-            <img src="assets/img/vitrine/pompadour-degrade.webp" alt="Corte Hair Space">
-            <img src="assets/img/vitrine/social-risca.webp" alt="Corte Hair Space">
-            <img src="assets/img/vitrine/mechas-rosas.webp" alt="Corte Hair Space">
-            <img src="assets/img/vitrine/risco-duplo.webp" alt="Corte Hair Space">
-            <img src="assets/img/vitrine/degrade-desenho.webp" alt="Corte Hair Space">
-        </div>
-
-        <!-- Botões de Ação da Vitrine -->
-        <div class="vitrine-buttons">
-            <button id="btn-ver-galeria" class="btn-action">VER GALERIA COMPLETA</button>
-            <a href="https://instagram.com" target="_blank" class="btn-instagram">
-                <i class="fab fa-instagram"></i> VER MAIS NO INSTAGRAM
-            </a>
+    <!-- Hero Section -->
+    <section id="inicio" class="hero">
+        <div class="container hero-text">
+            <h1>HAIR SPACE</h1>
+            <p class="subtitle">Barbearia Premium • Cidade A. E. Carvalho</p>
+            <h2 class="tagline">Seu estilo.<br><span>Nosso trabalho.</span></h2>
+            <p>Veja alguns dos cortes feitos na Hair Space e escolha seu próximo visual.</p>
+            <a href="#agendamento" class="btn-primary">AGENDAR MEU HORÁRIO →</a>
         </div>
     </section>
 
-    <!-- Seção Galeria Completa (Inicialmente oculta, abre ao clicar no botão) -->
-    <section id="galeria-completa" class="galeria-oculta">
-        <h3>Galeria Completa</h3>
-        <div class="grid-galeria">
-            <!-- 6 da vitrine -->
-            <img src="assets/img/vitrine/risca-lateral-barba.webp" alt="Corte">
-            <img src="assets/img/vitrine/pompadour-degrade.webp" alt="Corte">
-            <img src="assets/img/vitrine/social-risca.webp" alt="Corte">
-            <img src="assets/img/vitrine/mechas-rosas.webp" alt="Corte">
-            <img src="assets/img/vitrine/risco-duplo.webp" alt="Corte">
-            <img src="assets/img/vitrine/degrade-desenho.webp" alt="Corte">
-            <!-- 10 novas adicionadas -->
-            <img src="assets/img/galeria/cacheado-degrade.webp" alt="Corte">
-            <img src="assets/img/galeria/cacheado-tijolinho.webp" alt="Corte">
-            <img src="assets/img/galeria/cacheado-volume.webp" alt="Corte">
-            <img src="assets/img/galeria/classico-franja.webp" alt="Corte">
-            <img src="assets/img/galeria/corte-lateral.webp" alt="Corte">
-            <img src="assets/img/galeria/degrade-oculos.webp" alt="Corte">
-            <img src="assets/img/galeria/degrade-risca.webp" alt="Corte">
-            <img src="assets/img/galeria/navalha-acabamento.webp" alt="Corte">
-            <img src="assets/img/galeria/risca-marcada.webp" alt="Corte">
-            <img src="assets/img/galeria/risco-duplo-fino.webp" alt="Corte">
-        </div>
-    </section>
-
-    <!-- Destaques / Menu -->
-    <section class="servicos">
-        <h3>Serviços em destaque</h3>
-        <div id="menu-servicos"></div>
-    </section>
-
-    <!-- Fidelidade -->
-    <section class="fidelidade">
-        <h3>Clube Hair Space</h3>
-        <div class="fidelidade-card">
-            <div class="stamps">
-                <span class="stamp">✦</span>
-                <span class="stamp">✦</span>
-                <span class="stamp">✦</span>
-                <span class="stamp">✦</span>
+    <!-- Vitrine Section -->
+    <section id="vitrine" class="section vitrine">
+        <div class="container">
+            <h2 class="section-title">Vitrine Hair Space</h2>
+            <p class="section-subtitle">Trabalhos reais</p>
+            <div class="grid-6">
+                <!-- Imagens da pasta vitrine (ex: foto1.jpg, foto2.jpg...) -->
+                <div class="card-corte"><img src="assets/img/vitrine/foto1.jpg" alt="Corte Hair Space"></div>
+                <div class="card-corte"><img src="assets/img/vitrine/foto2.jpg" alt="Corte Hair Space"></div>
+                <div class="card-corte"><img src="assets/img/vitrine/foto3.jpg" alt="Corte Hair Space"></div>
+                <div class="card-corte"><img src="assets/img/vitrine/foto4.jpg" alt="Corte Hair Space"></div>
+                <div class="card-corte"><img src="assets/img/vitrine/foto5.jpg" alt="Corte Hair Space"></div>
+                <div class="card-corte"><img src="assets/img/vitrine/foto6.jpg" alt="Corte Hair Space"></div>
             </div>
-            <p>A cada procedimento concluído, ganhe um carimbo. Com 4 carimbos, você ganha um corte grátis.</p>
-            <button class="btn-secondary">VER MEU CARTÃO</button>
+            <div class="center-buttons">
+                <a href="#galeria" class="btn-secondary">VER GALERIA COMPLETA</a>
+                <a href="https://instagram.com" target="_blank" class="btn-secondary">VER MAIS NO INSTAGRAM</a>
+            </div>
         </div>
     </section>
 
-    <!-- Agendamento -->
-    <section id="agendamento" class="reserva">
-        <h3>Agende seu horário</h3>
-        <form id="form-reserva">
-            <label for="nome">Seu nome</label>
-            <input type="text" id="nome" placeholder="Como podemos te chamar?" required>
-
-            <label for="servico">Serviço</label>
-            <select id="servico" required></select>
-
-            <label for="barbeiro">Barbeiro</label>
-            <select id="barbeiro" required></select>
-
-            <label for="data">Data</label>
-            <input type="date" id="data" required>
-
-            <label for="horario">Horário</label>
-            <input type="time" id="horario" required>
-
-            <button type="submit" class="btn-whatsapp-submit">
-                CONTINUAR PELO WHATSAPP →
-            </button>
-        </form>
-        <p class="obs">Seu pedido é enviado pelo WhatsApp. O horário só fica garantido depois da confirmação da barbearia.</p>
+    <!-- Galeria Completa Section -->
+    <section id="galeria" class="section galeria">
+        <div class="container">
+            <h2 class="section-title">Galeria Completa</h2>
+            <div class="grid-4">
+                <!-- 16 Cortes (Imagens da pasta galeria) -->
+                <div class="card-galeria"><img src="assets/img/galeria/corte1.jpg" alt="Corte"></div>
+                <div class="card-galeria"><img src="assets/img/galeria/corte2.jpg" alt="Corte"></div>
+                <div class="card-galeria"><img src="assets/img/galeria/corte3.jpg" alt="Corte"></div>
+                <div class="card-galeria"><img src="assets/img/galeria/corte4.jpg" alt="Corte"></div>
+                <div class="card-galeria"><img src="assets/img/galeria/corte5.jpg" alt="Corte"></div>
+                <div class="card-galeria"><img src="assets/img/galeria/corte6.jpg" alt="Corte"></div>
+                <div class="card-galeria"><img src="assets/img/galeria/corte7.jpg" alt="Corte"></div>
+                <div class="card-galeria"><img src="assets/img/galeria/corte8.jpg" alt="Corte"></div>
+                <div class="card-galeria"><img src="assets/img/galeria/corte9.jpg" alt="Corte"></div>
+                <div class="card-galeria"><img src="assets/img/galeria/corte10.jpg" alt="Corte"></div>
+                <div class="card-galeria"><img src="assets/img/galeria/corte11.jpg" alt="Corte"></div>
+                <div class="card-galeria"><img src="assets/img/galeria/corte12.jpg" alt="Corte"></div>
+                <div class="card-galeria"><img src="assets/img/galeria/corte13.jpg" alt="Corte"></div>
+                <div class="card-galeria"><img src="assets/img/galeria/corte14.jpg" alt="Corte"></div>
+                <div class="card-galeria"><img src="assets/img/galeria/corte15.jpg" alt="Corte"></div>
+                <div class="card-galeria"><img src="assets/img/galeria/corte16.jpg" alt="Corte"></div>
+            </div>
+        </div>
     </section>
 
-    <!-- Botão Flutuante do WhatsApp -->
-    <a href="https://wa.me" class="whatsapp-flutuante" target="_blank">
-        <i class="fab fa-whatsapp"></i>
-    </a>
+    <!-- Clube Fidelidade Section -->
+    <section id="clube" class="section clube">
+        <div class="container card-fidelidade-box">
+            <h2 class="section-title gold-text">Clube Hair Space</h2>
+            <div class="stars">✦ ✦ ✦ ✦</div>
+            <p>A cada procedimento concluído, ganhe um carimbo. Com 4 carimbos, você ganha um corte grátis.</p>
+            <button class="btn-primary" onclick="alert('Seu cartão de carimbos virtual será aberto em breve!')">VER MEU CARTÃO</button>
+        </div>
+    </section>
 
+    <!-- Agendamento Section -->
+    <section id="agendamento" class="section agendamento">
+        <div class="container form-container">
+            <h2 class="section-title">Agende seu horário</h2>
+            
+            <form id="appointmentForm">
+                <div class="form-group">
+                    <label for="name">Seu nome</label>
+                    <input type="text" id="name" placeholder="Como podemos te chamar?" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="service">Serviço</label>
+                    <select id="service" required>
+                        <option value="" disabled selected>Selecione um serviço</option>
+                        <option value="Corte Degradê">Corte Degradê</option>
+                        <option value="Barba Terapia">Barba Terapia</option>
+                        <option value="Combo (Corte + Barba)">Combo (Corte + Barba)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="barber">Barbeiro</label>
+                    <select id="barber" required>
+                        <option value="" disabled selected>Escolha o profissional</option>
+                        <option value="Qualquer Profissional">Qualquer Profissional</option>
+                        <option value="Barbeiro 1">Barbeiro 1</option>
+                        <option value="Barbeiro 2">Barbeiro 2</option>
+                    </select>
+                </div>
+
+                <div class="form-group row-inputs">
+                    <div>
+                        <label for="date">Data</label>
+                        <input type="date" id="date" required>
+                    </div>
+                    <div>
+                        <label for="time">Horário</label>
+                        <input type="time" id="time" required>
+                    </div>
+                </div>
+
+                <button type="button" onclick="sendToWhatsApp()" class="btn-whatsapp">CONTINUAR PELO WHATSAPP →</button>
+            </form>
+            <p class="form-footer">Seu pedido é enviado pelo WhatsApp. O horário só fica garantido depois da confirmação da barbearia.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer-bottom">
+        <p>&copy; 2026 HAIR SPACE. Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- Service Worker Script -->
     <script src="js/config.js"></script>
     <script src="js/app.js"></script>
-    <script>
-        // Registro do Service Worker para PWA
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js');
-        }
-    </script>
 </body>
 </html>
+
