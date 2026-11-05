@@ -6,7 +6,6 @@
   <title>HAIR SPACE | Barbearia Premium</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="manifest" href="manifest.webmanifest">
-  <!-- Google Fonts importadas corretamente para o design do CSS -->
   <link rel="preconnect" href="https://googleapis.com">
   <link rel="preconnect" href="https://gstatic.com" crossorigin>
   <link href="https://googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Georgia&display=swap" rel="stylesheet">
@@ -14,7 +13,7 @@
 <body>
 
   <div class="app">
-    <!-- Header / Navbar Principal -->
+    <!-- Header Fixo com Botão "Baixar o App" integrado -->
     <header>
       <div class="brand">
         <img src="logo-header.webp" alt="Logo Hair Space">
@@ -25,11 +24,11 @@
       </div>
       <button class="install-btn" id="installBtn" style="display: none;">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-        Instalar
+        Baixar App
       </button>
     </header>
 
-    <!-- TELA 1: INÍCIO (HERO + VITRINE DE SERVIÇOS DINÂMICOS) -->
+    <!-- TELA 1: INÍCIO (HERO + SERVIÇOS + VITRINE DE 6 IMAGENS) -->
     <main id="inicio-screen" class="screen active">
       <section class="hero">
         <div class="hero-card">
@@ -42,30 +41,41 @@
         </div>
       </section>
 
-      <!-- Seção de Serviços Preenchida pelo JavaScript -->
+      <!-- Tabela de Preços -->
       <section>
         <div class="section-head">
           <h2>Nossos Serviços</h2>
+          <span>Preços</span>
+        </div>
+        <div class="services" id="servicesContainer"></div>
+      </section>
+
+      <!-- VITRINE ADICIONADA: Mostra estritamente as 6 fotos reais na página inicial -->
+      <section>
+        <div class="section-head">
+          <h2>Vitrine Hair Space</h2>
           <span>Trabalhos Reais</span>
         </div>
-        <div class="services" id="servicesContainer">
-          <!-- Os serviços do config.js serão injetados aqui -->
+        <div class="gallery" id="vitrineContainer">
+          <!-- As 6 imagens do repositório serão injetadas aqui pelo JS -->
+        </div>
+        <div class="gallery-more">
+          <button onclick="showScreen('galeria-screen')" class="btn secondary block" style="margin-bottom: 9px;">VER GALERIA COMPLETA</button>
+          <a href="https://www.instagram.com/hairspace_oficial" target="_blank" class="btn secondary block btn-insta">VER MAIS NO INSTAGRAM</a>
         </div>
       </section>
     </main>
 
-    <!-- TELA 2: GALERIA COMPLETA (FOTOS DA RAIZ DO REPOSITÓRIO) -->
+    <!-- TELA 2: GALERIA COMPLETA (TODAS AS FOTOS COBERTAS) -->
     <div id="galeria-screen" class="screen">
       <section>
         <div class="section-head">
           <h2>Galeria Completa</h2>
-          <span>Fotos Reais</span>
+          <span>Portfólio</span>
         </div>
-        <div class="gallery" id="galleryContainer">
-          <!-- As fotos do config.js serão injetadas aqui automaticamente -->
-        </div>
+        <div class="gallery" id="galleryContainer"></div>
         <div class="gallery-more">
-          <a href="https://instagram.com" target="_blank" class="btn secondary block btn-insta">VER MAIS NO INSTAGRAM</a>
+          <a href="https://www.instagram.com/hairspace_oficial" target="_blank" class="btn secondary block btn-insta">PÁGINA OFICIAL DO INSTAGRAM</a>
         </div>
       </section>
     </div>
@@ -77,12 +87,12 @@
           <div class="stars">✦ ✦ ✦ ✦</div>
           <h3>Clube Hair Space</h3>
           <p>A cada procedimento concluído, ganhe um carimbo. Com <strong>4 carimbos</strong>, você ganha um <strong>corte grátis</strong>.</p>
-          <button class="btn block" onclick="alert('Seu cartão de carimbos virtual será aberto em breve!')">VER MEU CARTÃO</button>
+          <button class="btn block" onclick="alert('Apresente o app na recepção para validar seus carimbos!')">VER MEU CARTÃO</button>
         </div>
       </section>
     </div>
 
-    <!-- TELA 4: AGENDAMENTO (FORMULÁRIO SEGURO COM WHATSAPP) -->
+    <!-- TELA 4: AGENDAMENTO FORMULÁRIO -->
     <div id="agendar-screen" class="screen">
       <section>
         <div class="section-head">
@@ -93,40 +103,29 @@
             <label for="name">Seu nome</label>
             <input type="text" id="name" placeholder="Como podemos te chamar?" required>
           </div>
-
           <div>
             <label for="service">Serviço</label>
-            <select id="service" required>
-              <option value="" disabled selected>Selecione um serviço</option>
-              <!-- Opções injetadas dinamicamente -->
-            </select>
+            <select id="service" required><option value="" disabled selected>Selecione um serviço</option></select>
           </div>
-
           <div>
             <label for="barber">Barbeiro</label>
-            <select id="barber" required>
-              <option value="" disabled selected>Escolha o profissional</option>
-              <!-- Opções injetadas dinamicamente -->
-            </select>
+            <select id="barber" required><option value="" disabled selected>Escolha o profissional</option></select>
           </div>
-
           <div>
             <label for="date">Data</label>
             <input type="date" id="date" required>
           </div>
-
           <div>
             <label for="time">Horário</label>
             <input type="time" id="time" required>
           </div>
-
           <button type="submit" class="btn block whats">CONTINUAR PELO WHATSAPP →</button>
         </form>
-        <p class="note">Seu pedido é enviado pelo WhatsApp. O horário só fica garantido depois da confirmação da barbearia.</p>
+        <p class="note">O horário só fica garantido depois da confirmação da barbearia via mensagem.</p>
       </section>
     </div>
 
-    <!-- Menu de Navegação Inferior (Abas do App / PWA) -->
+    <!-- Menu Inferior -->
     <nav class="bottom">
       <a href="#" onclick="showScreen('inicio-screen')" id="nav-inicio-screen" aria-current="page">
         <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
@@ -147,13 +146,11 @@
     </nav>
   </div>
 
-  <!-- Botão Flutuante do WhatsApp (Mapeado via CSS no final da página) -->
-  <a href="https://whatsapp.com" target="_blank" class="wa-fab" aria-label="Fale Conosco no WhatsApp">
-    <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.713-1.455L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.966C16.528 1.975 14.066 1.01 11.45 1.01 6.012 1.01 1.587 5.378 1.583 10.809c-.001 1.705.467 3.37 1.354 4.844l-.995 3.635 3.714-.964zm13.305-6.924c-.21-.105-1.24-.613-1.432-.682-.19-.07-.33-.105-.47.105-.14.21-.54.682-.66.819-.12.137-.24.154-.45.05-.21-.105-.885-.327-1.686-1.036-.624-.555-1.045-1.242-1.167-1.453-.12-.21-.013-.324.093-.429.096-.094.21-.245.316-.368.105-.123.14-.21.21-.35.07-.14.035-.263-.017-.368-.053-.105-.47-1.134-.644-1.554-.17-.41-.357-.354-.47-.36-.11l-.004-.002c-.12-.01-.26-.01-.4-.01-.14 0-.37.053-.56.26-.19.21-.73.714-.73 1.743s.75 2.023.85 2.164c.1.14 1.474 2.25 3.57 3.156.5.215.89.344 1.19.44.5.16.96.13.13.06l.4.52c.34-.11.73-.3 1.1-.58.37-.28.53-.53.62-.683.09-.153.05-.288.02-.343z"/></svg>
+  <!-- Botão Flutuante Customizado: Utiliza o novo ícone do WhatsApp enviado -->
+  <a href="https://whatsapp.com" target="_blank" class="wa-fab" aria-label="Chamar no WhatsApp" style="background: none; box-shadow: none;">
+    <img src="image_PaQRPY.png" alt="WhatsApp" style="width: 56px; height: 56px; object-fit: contain;">
   </a>
 
-  <!-- Carregamento Ordenado dos Scripts -->
-  <!-- O arquivo config.js foi movido para a raiz "/" corrigindo o erro 404 -->
   <script src="config.js"></script>
   <script src="js/app.js"></script>
 </body>
