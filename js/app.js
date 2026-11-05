@@ -19,7 +19,7 @@ document.getElementById('installBtn')?.addEventListener('click', async () => {
     }
 });
 
-// Controle de Alternância de Telas
+// Controle de Alternância de Telas Original
 function showScreen(screenId) {
     document.querySelectorAll('.screen').forEach(screen => {
         screen.classList.remove('active');
@@ -40,10 +40,9 @@ function showScreen(screenId) {
     }
 }
 
-// Injeção Dinâmica dos Elementos do config.js
+// Injeção Dinâmica Ajustada Apenas para Caminhos Relativos (Sem o "/" inicial)
 document.addEventListener("DOMContentLoaded", () => {
     // 1. Renderizar estritamente as 6 imagens na Vitrine Principal (Início)
-    // CORREÇÃO: Removido o "/" inicial para buscar o arquivo relativo à raiz do repositório
     const vitrineContainer = document.getElementById('vitrineContainer');
     if (vitrineContainer && typeof CONFIG !== 'undefined' && CONFIG.vitrineImagens) {
         vitrineContainer.innerHTML = CONFIG.vitrineImagens.map(imgSrc => `
@@ -52,7 +51,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // 2. Renderizar TODAS as imagens na Aba da Galeria Completa
-    // CORREÇÃO: Removido o "/" inicial para carregar corretamente
     const galleryContainer = document.getElementById('galleryContainer');
     if (galleryContainer && typeof CONFIG !== 'undefined') {
         const todasImagens = [...CONFIG.vitrineImagens, ...CONFIG.galeriaImagens];
@@ -61,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
         `).join('');
     }
 
-    // 3. Injetar opções nos selects do formulário
+    // 3. Alimentar os selects do formulário de agendamento
     const serviceSelect = document.getElementById('service');
     if (serviceSelect && typeof CONFIG !== 'undefined' && CONFIG.servicos) {
         serviceSelect.innerHTML = '<option value="" disabled selected>Selecione um serviço</option>';
@@ -121,7 +119,7 @@ function sendToWhatsApp() {
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('/sw.js')
-            .then(reg => console.log('PWA carregado offline!', reg))
+            .then(reg => console.log('PWA ativo!', reg))
             .catch(err => console.log('Erro de SW:', err));
     });
 }
