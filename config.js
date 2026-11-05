@@ -2,27 +2,28 @@ const CONFIG = {
   whatsappNumber: "5511947983217",
   barbeariaName: "Hair Space",
   
-  // Lista de fotos sincronizada com o repositório
+  // Lista de fotos sincronizada com as imagens enviadas da vitrine
   vitrineImagens: [
-    "assets/img/vitrine/risca-lateral-barba.webp",
-    "assets/img/vitrine/pompadour-degrade.webp",
-    "assets/img/vitrine/social-risca.webp",
-    "assets/img/vitrine/mechas-rosas.webp",
-    "assets/img/vitrine/risco-duplo.webp",
-    "assets/img/vitrine/degrade-desenho.webp"
+    "degrade-desenho.webp",
+    "mechas-rosas.webp",
+    "pompadour-degrade.webp",
+    "social-risca.webp",
+    "risca-lateral-barba.webp",
+    "risco-duplo.webp"
   ],
   
+  // Lista de fotos sincronizada com as novas imagens enviadas da galeria (1 a 10)
   galeriaImagens: [
-    "assets/img/galeria/cacheado-degrade.webp",
-    "assets/img/galeria/cacheado-tijolinho.webp",
-    "assets/img/galeria/cacheado-volume.webp",
-    "assets/img/galeria/classico-franja.webp",
-    "assets/img/galeria/corte-lateral.webp",
-    "assets/img/galeria/degrade-oculos.webp",
-    "assets/img/galeria/degrade-risca.webp",
-    "assets/img/galeria/navalha-acabamento.webp",
-    "assets/img/galeria/risca-marcada.webp",
-    "assets/img/galeria/risco-duplo-fino.webp"
+    "cacheado-degrade.webp",    // 1. Cabelo cacheado volumoso com degradê disfarçado nas laterais
+    "cacheado-tijolinho.webp",  // 2. Ondulado com degradê taper fade baixo e risca divisória
+    "cacheado-volume.webp",     // 3. Corte texturizado com franja caída desordenada e laterais limpas
+    "classico-franja.webp",     // 4. Cabelo liso com corte clássico dividido e franja escovada
+    "corte-lateral.webp",       // 5. Cabelo escuro liso penteado com risca clássica lateral
+    "degrade-oculos.webp",      // 6. Degradê limpo médio com topete levantado e arrepiado
+    "degrade-risca.webp",       // 7. Degradê alto com risca divisória acentuada no topo da cabeça
+    "navalha-acabamento.webp",  // 8. Alinhamento frontal e contorno raspados na lâmina/navalha
+    "risca-marcada.webp",       // 9. Linha divisória lateral limpa com degradê e presilha vermelha
+    "risco-duplo-fino.webp"     // 10. Degradê com topete polido para o lado e dois riscos paralelos finos
   ],
 
   servicos: [
